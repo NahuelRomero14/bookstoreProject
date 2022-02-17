@@ -36,7 +36,7 @@ const usersController = (User) => {
         firstName: body.firstName,
         lastName: body.lastName,
         userName: body.userName,
-        password: body.password,
+        password: await bcrypt.hash(body.password, 10),
         email: body.email,
         address: body.address,
         phone: body.phone
@@ -57,7 +57,8 @@ const usersController = (User) => {
     var response;
     const savedUser = await User.findOne({ "userName": body.userName });
 
-    if (savedUser && body.password === savedUser.password){       
+    
+    if (savedUser && (await bcrypt.compare(body.password, savedUser.password))){      //rompe en esta comparacion  
       
       const token = generateToken(savedUser);
       response = { message:'Ok', token};
