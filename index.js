@@ -1,6 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose'); //agrego mongoose
-const Book = require('./models/bookModel'); //obtengo el modelo (nombre del modelo comienza con mayúscula)
+const mongoose = require('mongoose'); 
+const Book = require('./models/bookModel'); //obtengo el modelo
 const User = require('./models/userModel');  
 const bodyParser = require('body-parser');
 const app = express();
@@ -13,18 +13,18 @@ mongoose.connect('mongodb://127.0.0.1:27017/API');  //conectamos con la direccio
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
-app.use('/api', bookRouter, userRouter); 
 
-// Consultar - error extraño
 
-/* 
+
+
 app.all('/api/*', jwt({
   secret : 'secretKey',
   algorithms : ['HS256']
  }).unless({
-   path: ['/api/users/login']
+   path: ['/api/login']
  }));
-*/
+
+ app.use('/api', bookRouter, userRouter); 
 app.listen(8080, ()=>{
   console.log('Server is running...');
 });
