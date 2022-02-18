@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const bookRouter = require('./routes/bookRouter')(Book);
 const userRouter = require('./routes/userRouter')(User); //*
+const jwt = require('express-jwt');
 
 mongoose.connect('mongodb://127.0.0.1:27017/API');  //conectamos con la direccion del la db
 
@@ -13,6 +14,17 @@ mongoose.connect('mongodb://127.0.0.1:27017/API');  //conectamos con la direccio
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use('/api', bookRouter, userRouter); 
+
+// Consultar - error extraño
+
+/* 
+app.all('/api/*', jwt({
+  secret : 'secretKey',
+  algorithms : ['HS256']
+ }).unless({
+   path: ['/api/users/login']
+ }));
+*/
 app.listen(8080, ()=>{
   console.log('Server is running...');
 });

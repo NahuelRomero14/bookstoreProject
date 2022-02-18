@@ -18,6 +18,20 @@ const booksController = (Book) => {
     const response = await Book.findById(params.bookId);
     res.json(response);
   }
+   const getBookByName = async (req, res) =>{
+    const { params } = req;
+    const response = await Book.findOne(params);
+    res.json(response);
+  }
+  
+
+
+  const getBookByAuthor = async (req, res) =>{
+    const { params } = req;
+    const response = await Book.findOne(params);
+    res.json(response);
+  }
+
 
   const putBooks = async (req, res) => {
     const { body } = req;
@@ -42,7 +56,7 @@ const booksController = (Book) => {
 
 
 
-  return { getBooks, postBooks, getBookById, putBooks, deleteBookById};
+  return { getBooks, postBooks, getBookById, getBookByName, getBookByAuthor, putBooks, deleteBookById};
 }
 
 module.exports = booksController;
